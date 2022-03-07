@@ -1,0 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    docker-compose.yml                                 :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/03/07 14:55:24 by fgata-va          #+#    #+#              #
+#    Updated: 2022/03/07 15:22:25 by fgata-va         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+services:
+    nginx:
+        build: requirements/nginx/
+        ports:
+            - "443:443"
+        restart: unless-stopped
+        volumes:
+            - "${CERTS_}:/etc/ssl/"

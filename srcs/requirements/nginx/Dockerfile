@@ -17,7 +17,7 @@ EXPOSE 443
 RUN apk update && apk add nginx && mkdir /var/www/html\
 && chmod 755 /var/www/html
 
-ADD default.conf /etc/nginx/http.d/
+ADD conf/default.conf /etc/nginx/http.d/
 ADD index.html /var/www/html/
 ADD fgata-va.jpg /var/www/html/
 ADD fgata-va.css /var/www/html/

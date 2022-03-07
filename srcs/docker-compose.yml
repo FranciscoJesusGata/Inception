@@ -12,9 +12,9 @@
 
 services:
     nginx:
-        build: requirements/nginx/
+        build: ./requirements/nginx/
         ports:
             - "443:443"
         restart: unless-stopped
         volumes:
-            - "${CERTS_}:/etc/ssl/"
+            - ./${CERTS_}:/etc/ssl/

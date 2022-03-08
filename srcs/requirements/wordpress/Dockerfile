@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/08 19:56:24 by fgata-va          #+#    #+#              #
-#    Updated: 2022/03/08 20:20:37 by fgata-va         ###   ########.fr        #
+#    Updated: 2022/03/08 20:30:05 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,4 +22,4 @@ RUN mkdir -p /usr/share/webapps/ && cd /usr/share/webapps/ && wget http://wordpr
  && tar -xzvf latest.tar.gz && rm latest.tar.gz && chmod 766 wordpress && mkdir -p /var/www/html\
  && ln -s /usr/share/webapps/wordpress/ /var/www/html
 
-CMD "php-fpm -F"
+CMD "php-fpm7 -F"

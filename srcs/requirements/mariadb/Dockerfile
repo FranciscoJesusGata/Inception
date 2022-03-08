@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/08 15:05:18 by fgata-va          #+#    #+#              #
-#    Updated: 2022/03/08 16:33:24 by fgata-va         ###   ########.fr        #
+#    Updated: 2022/03/08 18:08:13 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ FROM alpine:3.14
 
 EXPOSE 3306
 
-RUN apk update && apk add mariadb mariadb-common mariadb-openrc openrc\
+RUN apk add --no-cache mariadb mariadb-common mariadb-openrc mariadb-client openrc\
 && mkdir /run/openrc && touch /run/openrc/softlevel
 
-RUN /etc/init.d/mariadb setup
+ADD config/setup.sh /setup.sh
+RUN chmod 755 /setup.sh
 
-CMD /usr/bin/mysqld_safe --datadir="/var/lib/mysql"
+CMD /setup.sh

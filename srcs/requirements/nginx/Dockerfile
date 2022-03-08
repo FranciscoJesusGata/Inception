@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/03 21:19:25 by fgata-va          #+#    #+#              #
-#    Updated: 2022/03/08 15:00:23 by fgata-va         ###   ########.fr        #
+#    Updated: 2022/03/08 17:08:38 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,5 @@ ADD conf/default.conf /etc/nginx/http.d/
 ADD index.html /var/www/html/
 ADD fgata-va.jpg /var/www/html/
 ADD fgata-va.css /var/www/html/
-ADD certs/ /etc/ssl/
-#ADD certs/fgata-va.key /etc/ssl/
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -6,11 +6,11 @@
 #    By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/03 21:19:25 by fgata-va          #+#    #+#              #
-#    Updated: 2022/03/07 14:36:50 by fgata-va         ###   ########.fr        #
+#    Updated: 2022/03/08 15:00:23 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:3.15
+FROM alpine:3.14
 
 EXPOSE 443
 

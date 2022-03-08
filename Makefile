@@ -6,7 +6,7 @@
 #    By: fgata-va <fgata-va@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/07 11:27:54 by fgata-va          #+#    #+#              #
-#    Updated: 2022/03/07 15:23:23 by fgata-va         ###   ########.fr        #
+#    Updated: 2022/03/08 15:09:16 by fgata-va         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ USER := fgata-va
 CERTS_DIR := requirements/nginx/certs/
 
 all: srcs/.env srcs/$(CERTS_DIR)$(USER).crt
-	docker-compose up
+	docker-compose -f srcs/docker-compose.yml up
 
 srcs/.env:
 	echo "DOMAIN_NAME=$(USER).42.fr" > ./srcs/.env

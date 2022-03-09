@@ -14,3 +14,4 @@ echo "if ( ! defined( 'ABSPATH' ) ) {" >> $file
 echo "	define( 'ABSPATH', __DIR__ . '/' );" >> $file
 echo "}" >> $file
 echo "require_once ABSPATH . 'wp-settings.php';" >> $file
+exec php-fpm7 -F

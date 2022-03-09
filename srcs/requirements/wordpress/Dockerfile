@@ -25,6 +25,4 @@ RUN mkdir -p /usr/share/webapps/ && cd /usr/share/webapps/ && wget http://wordpr
 ADD conf/www.conf /etc/php7/php-fpm.d/
 ADD conf/config_wp.sh /root
 
-RUN sh /root/config_wp.sh ; rm -f /root/config_wp.sh
-
-CMD ["php-fpm7", "-F"]
+CMD ["/root/config_wp.sh"]

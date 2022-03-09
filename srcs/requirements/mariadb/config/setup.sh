@@ -19,6 +19,7 @@ FLUSH PRIVILEGES ;
 EOF
 	/usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < tmp.sql
 	rm -f tmp.sql
+	echo "bind-address=0.0.0.0" >> /etc/my.cnf.d/mariadb-server.cnf
 else
 	chown -R mysql:mysql /var/lib/mysql
 fi

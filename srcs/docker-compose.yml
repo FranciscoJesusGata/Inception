@@ -12,17 +12,17 @@
 
 services:
     mariadb:
+        env_file: .env
         build: ./requirements/mariadb/
         restart: unless-stopped
         volumes:
             - type: volume
               source: dbdata
               target: /var/lib/mysql
-              volume:
-                  nocopy: true
         networks:
           - php-mariadb
     wordpress:
+        env_file: .env
         depends_on:
           - mariadb
         build: ./requirements/wordpress/

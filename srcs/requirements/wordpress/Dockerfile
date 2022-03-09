@@ -20,6 +20,8 @@ RUN apk add php7 php7-fpm php7-session php7-iconv php7-json php7-gd php7-curl\
 
 RUN mkdir -p /usr/share/webapps/ && cd /usr/share/webapps/ && wget http://wordpress.org/latest.tar.gz\
  && tar -xzvf latest.tar.gz && rm latest.tar.gz && chmod 766 wordpress && mkdir -p /var/www/html\
- && ln -s /usr/share/webapps/wordpress/ /var/www/html
+ && ln -s /usr/share/webapps/wordpress/ /var/www/
 
-CMD "php-fpm7 -F"
+ADD config/www.conf /etc/php7/php-fpm.d/
+
+CMD ["php-fpm7", "-F"]

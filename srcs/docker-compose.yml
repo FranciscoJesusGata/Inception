@@ -20,12 +20,40 @@ services:
               target: /var/lib/mysql
               volume:
                   nocopy: true
+        networks:
+          - php-mariadb
+    wordpress:
+        depends_on:
+          - mariadb
+        build: ./requirements/wordpress/
+        restart: unless-stopped
+        volumes:
+          - type: volume
+            source: wpdata
+            target: /usr/share/webapps/wordpress
+        networks:
+          - php-nginx
+          - php-mariadb
     nginx:
+        depends_on:
+          - mariadb
+          - wordpress
         build: ./requirements/nginx/
         ports:
             - "443:443"
         restart: unless-stopped
         volumes:
             - ./${CERTS_}:/etc/ssl/
+            - type: volume
+              source: wpdata
+              target: /var/www/wordpress
+              volume:
+                nocopy: true
+        networks:
+          - php-nginx
 volumes:
     dbdata:
+    wpdata:
+networks:
+    php-nginx:
+    php-mariadb:

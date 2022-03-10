@@ -22,9 +22,9 @@ all: srcs/.env srcs/$(CERTS_DIR)$(USER).crt
 srcs/.env:
 	echo "DOMAIN_NAME=$(USER).42.fr" > ./srcs/.env
 	echo "CERTS_=$(CERTS_DIR)" >> ./srcs/.env
-	echo "MYSQL_ROOT_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 24)" >> ./srcs/.env
+	echo "MYSQL_ROOT_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
 	echo "MYSQL_USER=$(USER)" >> ./srcs/.env
-	echo "MYSQL_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 24)" >> ./srcs/.env
+	echo "MYSQL_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
 	echo "MYSQL_DATABASE=$(DATABASE)" >> ./srcs/.env
 
 srcs/$(CERTS_DIR)$(USER).crt:

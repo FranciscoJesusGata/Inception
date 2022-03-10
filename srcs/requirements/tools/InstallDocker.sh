@@ -38,7 +38,7 @@ if ! dpkg -s docker-ce; then
 	echo "Installing docker..."
 	apt-get update
 	apt-get install docker-ce docker-ce-cli containerd.io -y
-	if docker run hello-world; then
+	if ! docker run hello-world; then
 		echo "Something wen't wrong on install, try again!"
 		exit
 	fi
@@ -54,3 +54,14 @@ if ! dpkg -s docker-ce; then
 	echo "Try to logout and login again to test if everything is working fine."
 fi
 
+if [ ! -f /usr/local/bin/docker-compose ]; then
+	echo "We are going to install docker-compose"
+	curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	if ["$?" -eq 0]; then
+		chmod +x /usr/local/bin/docker-compose
+		ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+		docker-compose --version
+	else
+		echo "Something went wrong on the install, please try again!" 
+	fi
+fi

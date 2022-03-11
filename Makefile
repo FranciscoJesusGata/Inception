@@ -32,4 +32,8 @@ srcs/$(CERTS_DIR)$(USER).crt:
 	|| openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 \
 	-nodes -subj "/C=ES/ST=Madrid/O=./CN=fgata-va.42.fr" \
 	-out srcs/$(CERTS_DIR)$(USER).crt -keyout srcs/$(CERTS_DIR)$(USER).key
-
+clean:
+	docker-compose -f srcs/docker-compose.yml down
+fclean: clean
+	bash -c "docker rmi srcs_{mariadb,nginx,wordpress}"
+	docker volume rm $$(docker volume ls -q)

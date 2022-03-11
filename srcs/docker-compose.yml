@@ -21,7 +21,7 @@ services:
               target: /var/lib/mysql
         networks:
           - php-mariadb
-    wordpress:
+    php-fpm:
         env_file: .env
         depends_on:
           - mariadb
@@ -37,7 +37,7 @@ services:
     nginx:
         depends_on:
           - mariadb
-          - wordpress
+          - php-fpm
         build: ./requirements/nginx/
         ports:
             - "443:443"
@@ -53,7 +53,17 @@ services:
           - php-nginx
 volumes:
     dbdata:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/${USER}/data/db_volume
     wpdata:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/${USER}/data/wp_volume
 networks:
     php-nginx:
     php-mariadb:

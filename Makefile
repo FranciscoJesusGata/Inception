@@ -16,8 +16,17 @@ CERTS_DIR := requirements/nginx/certs/
 
 DATABASE:= wordpress
 
-all: srcs/.env srcs/$(CERTS_DIR)$(USER).crt
+all:	srcs/.env srcs/$(CERTS_DIR)$(USER).crt /home/$(USER)/data
+	#@if ! dpkg -s docker-ce || ! -f /usr/local/bin/docker-compose ; then\
+	#	echo "Docker or docker-compose is not installed, to install both run:" || \
+	#	echo "sudo ./srcs/requirements/tools/InstallDocker.sh";\
+	#else\
+	#	docker-compose -f srcs/docker-compose.yml up;\
+	#fi
 	docker-compose -f srcs/docker-compose.yml up
+
+/home/$(USER)/data:
+	-bash -c "mkdir -p /home/$(USER)/data/{wp_volume,db_volume}"
 
 srcs/.env:
 	echo "DOMAIN_NAME=$(USER).42.fr" > ./srcs/.env
@@ -32,8 +41,17 @@ srcs/$(CERTS_DIR)$(USER).crt:
 	|| openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 \
 	-nodes -subj "/C=ES/ST=Madrid/O=./CN=fgata-va.42.fr" \
 	-out srcs/$(CERTS_DIR)$(USER).crt -keyout srcs/$(CERTS_DIR)$(USER).key
+
 clean:
-	docker-compose -f srcs/docker-compose.yml down
-fclean: clean
-	bash -c "docker rmi srcs_{mariadb,nginx,wordpress}"
+	-docker-compose -f srcs/docker-compose.yml down
+
+fclean:	clean
+	-bash -c "docker rmi srcs_{mariadb,nginx,php-fpm}"
 	docker volume rm $$(docker volume ls -q)
+
+re:	fclean all
+
+prune:	fclean
+	-rm -f srcs/.env
+	-rm -rf srcs/$(CERTS_DIR)
+

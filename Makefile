@@ -33,6 +33,7 @@ srcs/.env:
 	echo "MYSQL_ROOT_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
 	echo "MYSQL_USER=$(USER)" >> ./srcs/.env
 	echo "MYSQL_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
+	echo "MYSQL_WP_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
 	echo "MYSQL_DATABASE=$(DATABASE)" >> ./srcs/.env
 
 srcs/$(CERTS_DIR)$(USER).crt:

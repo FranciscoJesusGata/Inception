@@ -2,8 +2,8 @@
 file=/usr/share/webapps/wordpress/wp-config.php
 echo "<?php" > $file
 echo "define( 'DB_NAME', '$MYSQL_DATABASE' );" >> $file
-echo "define( 'DB_USER', '$MYSQL_USER' );" >> $file
-echo "define( 'DB_PASSWORD', '$MYSQL_PASSWORD' );" >> $file
+echo "define( 'DB_USER', 'wordpress' );" >> $file
+echo "define( 'DB_PASSWORD', '$MYSQL_WP_PASSWORD' );" >> $file
 echo "define( 'DB_HOST', 'mariadb' );" >> $file
 echo "define( 'DB_CHARSET', 'utf8' );" >> $file
 echo "define( 'DB_COLLATE', '' );" >> $file

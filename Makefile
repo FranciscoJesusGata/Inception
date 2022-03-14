@@ -21,7 +21,7 @@ all:	srcs/.env srcs/$(CERTS_DIR)$(USER).crt /home/$(USER)/data
 		echo "Docker or docker-compose is not installed, to install both run:";\
 		echo "sudo ./srcs/requirements/tools/InstallDocker.sh";\
 	else\
-		docker-compose -d -f srcs/docker-compose.yml up;\
+		docker-compose -f srcs/docker-compose.yml up -d;\
 	fi
 
 /home/$(USER)/data:
@@ -36,21 +36,22 @@ srcs/.env:
 	echo "MYSQL_DATABASE=$(DATABASE)" >> ./srcs/.env
 
 srcs/$(CERTS_DIR)$(USER).crt:
-	mkdir srcs/requirements/nginx/certs/\
-	|| openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 \
+	mkdir srcs/requirements/nginx/certs/
+	openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 \
 	-nodes -subj "/C=ES/ST=Madrid/O=./CN=fgata-va.42.fr" \
 	-out srcs/$(CERTS_DIR)$(USER).crt -keyout srcs/$(CERTS_DIR)$(USER).key
+stop:
+	docker-compose -f srcs/docker-compose.yml stop
 
 clean:
 	-docker-compose -f srcs/docker-compose.yml down
 
 fclean:	clean
-	-bash -c "docker rmi srcs_{mariadb,nginx,php-fpm}"
-	docker volume rm $$(docker volume ls -q)
+	-bash -c "docker rmi fgata-va/{mariadb,nginx,php-fpm}"
+	-docker volume rm $$(docker volume ls -q)
 
 re:	fclean all
 
 prune:	fclean
-	-rm -f srcs/.env
-	-rm -rf srcs/$(CERTS_DIR)
-
+	rm -f srcs/.env
+	rm -rf srcs/$(CERTS_DIR)

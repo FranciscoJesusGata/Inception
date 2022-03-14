@@ -10,10 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
+version: '3'
 services:
     mariadb:
         env_file: .env
         build: ./requirements/mariadb/
+        image: fgata-va/mariadb
+        container_name: mariadb
         restart: unless-stopped
         volumes:
             - type: volume
@@ -26,6 +29,8 @@ services:
         depends_on:
           - mariadb
         build: ./requirements/wordpress/
+        image: fgata-va/php-fpm
+        container_name: php-fpm
         restart: unless-stopped
         volumes:
           - type: volume
@@ -39,6 +44,8 @@ services:
           - mariadb
           - php-fpm
         build: ./requirements/nginx/
+        image: fgata-va/nginx
+        container_name: nginx
         ports:
             - "443:443"
         restart: unless-stopped

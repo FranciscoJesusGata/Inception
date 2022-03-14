@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]; then
 	exit
 fi
 
-if cat /etc/hosts | grep "fgata-va.42.fr"; then
+if cat /etc/hosts | grep "fgata-va.42.fr" > /dev/null 2>&1; then
 	echo "127.0.0.1	fgata-va.42.fr" >> /etc/hosts
 fi
 
@@ -21,7 +21,7 @@ if ! id -u "$1" > /dev/null 2>&1; then
 	exit
 fi
 
-if ! dpkg -s docker-ce; then
+if ! dpkg -s docker-ce > /dev/null 2>&1; then
 	echo "First we uninstall old docker versions."
 	apt-get remove docker docker-engine docker.io containerd runc
 	echo "Let's set up the repository"

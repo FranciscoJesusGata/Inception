@@ -17,13 +17,12 @@ CERTS_DIR := requirements/nginx/certs/
 DATABASE:= wordpress
 
 all:	srcs/.env srcs/$(CERTS_DIR)$(USER).crt /home/$(USER)/data
-	#@if ! dpkg -s docker-ce || ! -f /usr/local/bin/docker-compose ; then\
-	#	echo "Docker or docker-compose is not installed, to install both run:" || \
-	#	echo "sudo ./srcs/requirements/tools/InstallDocker.sh";\
-	#else\
-	#	docker-compose -f srcs/docker-compose.yml up;\
-	#fi
-	docker-compose -f srcs/docker-compose.yml up
+	@if [ ! dpkg -s docker -ce > /dev/null 2>&1 ] || [ ! -f /usr/local/bin/docker-compose ]; then \
+		echo "Docker or docker-compose is not installed, to install both run:";\
+		echo "sudo ./srcs/requirements/tools/InstallDocker.sh";\
+	else\
+		docker-compose -d -f srcs/docker-compose.yml up;\
+	fi
 
 /home/$(USER)/data:
 	-bash -c "mkdir -p /home/$(USER)/data/{wp_volume,db_volume}"

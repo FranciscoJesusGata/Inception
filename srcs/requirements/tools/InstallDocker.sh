@@ -7,8 +7,8 @@ if [ "$EUID" -ne 0 ]; then
 	exit
 fi
 
-if cat /etc/hosts | grep "fgata-va.42.fr" > /dev/null 2>&1; then
-	echo "127.0.0.1	fgata-va.42.fr" >> /etc/hosts
+if [ ! $(cat /etc/hosts | grep "fgata-va.42.fr" > /dev/null 2>&1) ]; then
+	bash -c "echo '127.0.0.1	fgata-va.42.fr' >> /etc/hosts"
 fi
 
 if [ "$#" -ne 1 ]; then

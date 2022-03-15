@@ -23,7 +23,7 @@ services:
               source: dbdata
               target: /var/lib/mysql
         networks:
-          - php-mariadb
+          - wp-fullstack
     php-fpm:
         env_file: .env
         depends_on:
@@ -37,8 +37,7 @@ services:
             source: wpdata
             target: /usr/share/webapps/wordpress
         networks:
-          - php-nginx
-          - php-mariadb
+          - wp-fullstack
     nginx:
         depends_on:
           - mariadb
@@ -57,7 +56,7 @@ services:
               volume:
                 nocopy: true
         networks:
-          - php-nginx
+          - wp-fullstack
 volumes:
     dbdata:
       driver: local
@@ -72,5 +71,4 @@ volumes:
         o: bind
         device: /home/${USER}/data/wp_volume
 networks:
-    php-nginx:
-    php-mariadb:
+    wp-fullstack:

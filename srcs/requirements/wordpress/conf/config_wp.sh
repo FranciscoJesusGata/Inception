@@ -1,4 +1,14 @@
 #!/bin/sh
+
+if [ ! -d /usr/share/webapps/wordpress ]; then
+	mkdir -p /usr/share/webapps/
+	cd /usr/share/webapps/
+	wget http://wordpress.org/latest.tar.gz
+	tar -xzvf latest.tar.gz && rm latest.tar.gz
+	chmod 755 wordpress
+fi
+
+ln -s /usr/share/webapps/wordpress/ /var/www/
 file=/usr/share/webapps/wordpress/wp-config.php
 echo "<?php" > $file
 echo "define( 'DB_NAME', '$MYSQL_DATABASE' );" >> $file

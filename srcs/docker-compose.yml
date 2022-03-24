@@ -14,6 +14,8 @@ version: '3'
 services:
     mariadb:
         env_file: .env
+        depends_on:
+          - php-fpm
         build: ./requirements/mariadb/
         image: fgata-va/mariadb
         container_name: mariadb
@@ -26,8 +28,6 @@ services:
           - wp-fullstack
     php-fpm:
         env_file: .env
-        depends_on:
-          - mariadb
         build: ./requirements/wordpress/
         image: fgata-va/php-fpm
         container_name: php-fpm

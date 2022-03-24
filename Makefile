@@ -35,6 +35,7 @@ srcs/.env:
 	echo "MYSQL_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
 	echo "MYSQL_WP_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
 	echo "MYSQL_DATABASE=$(DATABASE)" >> ./srcs/.env
+	echo "WP_ADMIN_PASSWORD=$$(srcs/requirements/tools/passwdgen.sh 14)" >> ./srcs/.env
 
 srcs/$(CERTS_DIR)$(USER).crt:
 	mkdir srcs/requirements/nginx/certs/

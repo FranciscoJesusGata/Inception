@@ -20,7 +20,8 @@ RUN apk add php7 php7-fpm php7-session php7-iconv php7-json php7-gd php7-curl\
 
 RUN mkdir -p /usr/share/webapps/ && mkdir -p /var/www 
 
-ADD data/ /usr/share/webapps/
+ADD data/wordpress /usr/share/webapps/
+ADD data/data.sql /root/
 ADD conf/www.conf /etc/php7/php-fpm.d/
 ADD conf/config_wp.sh /root
 

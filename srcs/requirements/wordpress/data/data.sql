@@ -15,6 +15,8 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+USE wordpress;
+
 --
 -- Table structure for table `wp_commentmeta`
 --
@@ -392,14 +394,6 @@ CREATE TABLE `wp_users` (
 --
 -- Dumping data for table `wp_users`
 --
-
-LOCK TABLES `wp_users` WRITE;
-/*!40000 ALTER TABLE `wp_users` DISABLE KEYS */;
-INSERT INTO `wp_users` VALUES (1,'fgata-va','$P$BKuWMLptJVv0ct3RgOTDavZs2eLZKa0','fgata-va','saoko@papi.es','https://fgata-va.42.fr','2022-03-21 13:53:05','',0,'fgata-va');
-/*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

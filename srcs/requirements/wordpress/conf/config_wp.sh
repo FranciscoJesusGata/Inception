@@ -8,23 +8,17 @@ if [ ! -d /usr/share/webapps/wordpress ]; then
 	chmod 755 wordpress
 fi
 
-mysql -u wordpress --password="$MYSQL_WP_PASSWORD" wordpress < /root/data.sql
-mysql -u wordpress --password="$MYSQL_WP_PASSWORD" wordpress << EOF
-LOCK TABLES `wp_users` WRITE;
-/*!40000 ALTER TABLE `wp_users` DISABLE KEYS */;
-INSERT INTO `wp_users` VALUES (1,'fgata-va',MD5('$WP_ADMIN_PASSWORD'),'fgata-va','saoko@papi.es','https://fgata-va.42.fr','2022-03-21 13:53:05','',0,'fgata-va');
-/*!40000 ALTER TABLE `wp_users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-EOF
+sleep 5
+mysql -u $MYSQL_USER --password="$MYSQL_PASSWORD" -h mariadb wordpress < /root/data.sql
+wp user create fgata-va saoko@papi.es --role=administrator --allow-root --path=/usr/share/webapps/wordpress/ > login && chmod 400 login
+wp user create motomami moto@mami.es --role=subscriber --allow-root --path=/usr/share/webapps/wordpress/ > login2 && chmod 400 login2
 
 ln -s /usr/share/webapps/wordpress/ /var/www/
 file=/usr/share/webapps/wordpress/wp-config.php
 echo "<?php" > $file
 echo "define( 'DB_NAME', '$MYSQL_DATABASE' );" >> $file
-echo "define( 'DB_USER', 'wordpress' );" >> $file
-echo "define( 'DB_PASSWORD', '$MYSQL_WP_PASSWORD' );" >> $file
+echo "define( 'DB_USER', '$MYSQL_USER' );" >> $file
+echo "define( 'DB_PASSWORD', '$MYSQL_PASSWORD' );" >> $file
 echo "define( 'DB_HOST', 'mariadb' );" >> $file
 echo "define( 'DB_CHARSET', 'utf8' );" >> $file
 echo "define( 'DB_COLLATE', '' );" >> $file

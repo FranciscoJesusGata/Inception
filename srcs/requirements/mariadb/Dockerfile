@@ -17,7 +17,7 @@ EXPOSE 3306
 RUN apk add --no-cache mariadb mariadb-common mariadb-openrc mariadb-client openrc\
 && mkdir /run/openrc && touch /run/openrc/softlevel
 
-ADD conf/setup.sh /setup.sh
+COPY conf/setup.sh /setup.sh
 RUN chmod 755 /setup.sh
 
-CMD /setup.sh
+CMD ["/setup.sh"]

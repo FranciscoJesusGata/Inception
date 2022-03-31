@@ -8,20 +8,6 @@ if [ ! -d /usr/share/webapps/wordpress ]; then
 	chmod 755 wordpress
 fi
 
-until nc -z -v -w30 mariadb 3306
-do
-	echo "Waiting for database connection..."
-  sleep 5
-done
-
-# Is the database already created?
-db_installed=`mysqlshow -u $MYSQL_USER --password=$MYSQL_PASSWORD -h mariadb | grep -o wordpress`
-if [ $db_installed == "wordpress" ]; then
-	mysql -u $MYSQL_USER --password="$MYSQL_PASSWORD" -h mariadb wordpress < /root/data.sql
-	wp user create fgata-va saoko@papi.es --role=administrator --allow-root --path=/usr/share/webapps/wordpress/ > login && chmod 400 login
-	wp user create motomami moto@mami.es --role=subscriber --allow-root --path=/usr/share/webapps/wordpress/ > login2 && chmod 400 login2
-fi
-
 # Is wordpress already installed?
 if [ ! -d /var/www/wordpress ]; then
 	ln -s /usr/share/webapps/wordpress/ /var/www/
@@ -42,6 +28,20 @@ if [ ! -d /var/www/wordpress ]; then
 	echo "}" >> $file
 	echo "require_once ABSPATH . 'wp-settings.php';" >> $file
 	echo "?>" >> $file
+fi
+
+until nc -z -v -w30 mariadb 3306
+do
+	echo "Waiting for database connection..."
+  sleep 5
+done
+
+# Is the database already created?
+db_installed=`mysqlshow -u $MYSQL_USER --password=$MYSQL_PASSWORD -h mariadb wordpress | grep -o wp_users`
+if [ "$db_installed" == "" ]; then
+	mysql -u $MYSQL_USER --password="$MYSQL_PASSWORD" -h mariadb wordpress < /root/data.sql
+	wp user create fgata-va saoko@papi.es --role=administrator --allow-root --path=/usr/share/webapps/wordpress/ > login && chmod 400 login
+	wp user create motomami moto@mami.es --role=subscriber --allow-root --path=/usr/share/webapps/wordpress/ > login2 && chmod 400 login2
 fi
 
 exec php-fpm7 -F
